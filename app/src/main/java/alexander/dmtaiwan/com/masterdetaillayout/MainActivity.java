@@ -4,13 +4,17 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainFragment.FragmentInterface{
     private Boolean mTabletMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MainFragment mainFragment = MainFragment.newInstance(this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, mainFragment).commit();
+
         if(findViewById(R.id.container)!= null){
             mTabletMode = true;
             DetailFragment detailFragment = new DetailFragment();

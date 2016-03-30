@@ -15,6 +15,14 @@ import android.widget.Button;
 public class MainFragment extends Fragment{
     private Boolean mTablet;
     private Button mButton;
+    private FragmentInterface fragmentInterface;
+
+    public static MainFragment newInstance(FragmentInterface fragmentInterface) {
+        MainFragment fragment = new MainFragment();
+        fragment.fragmentInterface = fragmentInterface;
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,10 +40,14 @@ public class MainFragment extends Fragment{
                     startActivity(intent);
                 }else{
                     //This is tablet mode, tell MainActivity to replace the fragment in Container
-                    ((MainActivity)getActivity()).replaceFragment();
+                    fragmentInterface.replaceFragment();
                 }
             }
         });
         return rootView;
+    }
+
+    public interface FragmentInterface {
+        void replaceFragment();
     }
 }
